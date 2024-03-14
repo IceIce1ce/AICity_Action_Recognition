@@ -223,6 +223,17 @@ if __name__ == "__main__":
     fps = 30
     seed_everything(719)
     labels = list(np.arange(16)) # 18 classes for dataset 2021
+    checkpoint_dashboard_list = []
+    checkpoint_rearview_list = []
+    checkpoint_right_list = []
+    path_saved_ckpt = natsorted(glob.glob('checkpoint_submit/*.pyth'))
+    for i in range(len(path_saved_ckpt)):
+        if path_saved_ckpt[i].split('/')[-1].split('_')[1] == 'dashboard':
+            checkpoint_dashboard_list.append(path_saved_ckpt[i])
+        elif path_saved_ckpt[i].split('/')[-1].split('_')[1] == 'rearview':
+            checkpoint_rearview_list.append(path_saved_ckpt[i])
+        else:
+            checkpoint_right_list.append(path_saved_ckpt[i])
 
     # start infer dashboard videos
     video_ids = {}
@@ -245,10 +256,10 @@ if __name__ == "__main__":
             vid_info.setdefault(key, []).append(video_ids[key])
         if key in filelist:
             vid_info.setdefault(key, []).append(filelist[key])
-    checkpoint_dashboard_list = ['checkpoint_submit/original_dashboard_frame8_rate4.pyth', 'checkpoint_submit/original_dashboard_frame8_rate8.pyth', 'checkpoint_submit/original_dashboard_frame8_rate12.pyth',
-                                 'checkpoint_submit/original_dashboard_frame16_rate2.pyth', 'checkpoint_submit/original_dashboard_frame16_rate4.pyth', 'checkpoint_submit/original_dashboard_frame16_rate6.pyth',
-                                 'checkpoint_submit/expand_dashboard_frame8_rate4.pyth', 'checkpoint_submit/expand_dashboard_frame8_rate8.pyth', 'checkpoint_submit/expand_dashboard_frame8_rate12.pyth',
-                                 'checkpoint_submit/expand_dashboard_frame16_rate2.pyth', 'checkpoint_submit/expand_dashboard_frame16_rate4.pyth', 'checkpoint_submit/expand_dashboard_frame16_rate6.pyth']
+    # checkpoint_dashboard_list = ['checkpoint_submit/original_dashboard_frame8_rate4.pyth', 'checkpoint_submit/original_dashboard_frame8_rate8.pyth', 'checkpoint_submit/original_dashboard_frame8_rate12.pyth',
+    #                              'checkpoint_submit/original_dashboard_frame16_rate2.pyth', 'checkpoint_submit/original_dashboard_frame16_rate4.pyth', 'checkpoint_submit/original_dashboard_frame16_rate6.pyth',
+    #                              'checkpoint_submit/expand_dashboard_frame8_rate4.pyth', 'checkpoint_submit/expand_dashboard_frame8_rate8.pyth', 'checkpoint_submit/expand_dashboard_frame8_rate12.pyth',
+    #                              'checkpoint_submit/expand_dashboard_frame16_rate2.pyth', 'checkpoint_submit/expand_dashboard_frame16_rate4.pyth', 'checkpoint_submit/expand_dashboard_frame16_rate6.pyth']
     vid_info = dict(sorted(vid_info.items()))
     inference_result(cfg, vid_info, checkpoint_dashboard_list)
 
@@ -273,10 +284,10 @@ if __name__ == "__main__":
         if key in filelist:
             vid_info.setdefault(key, []).append(filelist[key])
     vid_info = dict(sorted(vid_info.items()))
-    checkpoint_rearview_list = ['checkpoint_submit/original_rearview_frame8_rate4.pyth', 'checkpoint_submit/original_rearview_frame8_rate8.pyth', 'checkpoint_submit/original_rearview_frame8_rate12.pyth',
-                                'checkpoint_submit/original_rearview_frame16_rate2.pyth', 'checkpoint_submit/original_rearview_frame16_rate4.pyth', 'checkpoint_submit/original_rearview_frame16_rate6.pyth',
-                                'checkpoint_submit/expand_rearview_frame8_rate4.pyth', 'checkpoint_submit/expand_rearview_frame8_rate8.pyth', 'checkpoint_submit/expand_rearview_frame8_rate12.pyth',
-                                'checkpoint_submit/expand_rearview_frame16_rate2.pyth', 'checkpoint_submit/expand_rearview_frame16_rate4.pyth', 'checkpoint_submit/expand_rearview_frame16_rate6.pyth']
+    # checkpoint_rearview_list = ['checkpoint_submit/original_rearview_frame8_rate4.pyth', 'checkpoint_submit/original_rearview_frame8_rate8.pyth', 'checkpoint_submit/original_rearview_frame8_rate12.pyth',
+    #                             'checkpoint_submit/original_rearview_frame16_rate2.pyth', 'checkpoint_submit/original_rearview_frame16_rate4.pyth', 'checkpoint_submit/original_rearview_frame16_rate6.pyth',
+    #                             'checkpoint_submit/expand_rearview_frame8_rate4.pyth', 'checkpoint_submit/expand_rearview_frame8_rate8.pyth', 'checkpoint_submit/expand_rearview_frame8_rate12.pyth',
+    #                             'checkpoint_submit/expand_rearview_frame16_rate2.pyth', 'checkpoint_submit/expand_rearview_frame16_rate4.pyth', 'checkpoint_submit/expand_rearview_frame16_rate6.pyth']
     inference_result(cfg, vid_info, checkpoint_rearview_list)
 
     # start infer rightside videos
@@ -300,8 +311,8 @@ if __name__ == "__main__":
         if key in filelist:
             vid_info.setdefault(key, []).append(filelist[key])
     vid_info = dict(sorted(vid_info.items()))
-    checkpoint_right_list = ['checkpoint_submit/original_right_frame8_rate4.pyth', 'checkpoint_submit/original_right_frame8_rate8.pyth', 'checkpoint_submit/original_right_frame8_rate12.pyth',
-                             'checkpoint_submit/original_right_frame16_rate2.pyth', 'checkpoint_submit/original_right_frame16_rate4.pyth', 'checkpoint_submit/original_right_frame16_rate6.pyth',
-                             'checkpoint_submit/expand_right_frame8_rate4.pyth', 'checkpoint_submit/expand_right_frame8_rate8.pyth', 'checkpoint_submit/expand_right_frame8_rate12.pyth',
-                             'checkpoint_submit/expand_right_frame16_rate2.pyth', 'checkpoint_submit/expand_right_frame16_rate4.pyth', 'checkpoint_submit/expand_right_frame16_rate6.pyth']
+    # checkpoint_right_list = ['checkpoint_submit/original_right_frame8_rate4.pyth', 'checkpoint_submit/original_right_frame8_rate8.pyth', 'checkpoint_submit/original_right_frame8_rate12.pyth',
+    #                          'checkpoint_submit/original_right_frame16_rate2.pyth', 'checkpoint_submit/original_right_frame16_rate4.pyth', 'checkpoint_submit/original_right_frame16_rate6.pyth',
+    #                          'checkpoint_submit/expand_right_frame8_rate4.pyth', 'checkpoint_submit/expand_right_frame8_rate8.pyth', 'checkpoint_submit/expand_right_frame8_rate12.pyth',
+    #                          'checkpoint_submit/expand_right_frame16_rate2.pyth', 'checkpoint_submit/expand_right_frame16_rate4.pyth', 'checkpoint_submit/expand_right_frame16_rate6.pyth']
     inference_result(cfg, vid_info, checkpoint_right_list)

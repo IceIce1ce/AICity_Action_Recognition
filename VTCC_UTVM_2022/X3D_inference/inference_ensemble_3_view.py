@@ -198,6 +198,17 @@ if __name__ == "__main__":
     fps = 30
     seed_everything(719)
     labels = list(np.arange(18)) # change to 16 classes for dataset 2023 and 2024
+    checkpoint_dashboard_list = []
+    checkpoint_rearview_list = []
+    checkpoint_right_list = []
+    path_saved_ckpt = natsorted(glob.glob('checkpoint_submit/*.pyth'))
+    for i in range(len(path_saved_ckpt)):
+        if path_saved_ckpt[i].split('/')[-1].split('_')[2] == 'dashboard':
+            checkpoint_dashboard_list.append(path_saved_ckpt[i])
+        elif path_saved_ckpt[i].split('/')[-1].split('_')[2] == 'rearview':
+            checkpoint_rearview_list.append(path_saved_ckpt[i])
+        else:
+            checkpoint_right_list.append(path_saved_ckpt[i])
 
     # start infer dashboard videos
     video_ids = {}
@@ -220,11 +231,11 @@ if __name__ == "__main__":
             vid_info.setdefault(key, []).append(video_ids[key])
         if key in filelist:
             vid_info.setdefault(key, []).append(filelist[key])
-    checkpoint_dashboard_list = ['checkpoint_submit/checkpoint_epoch_dashboard_24026_00016_77.78.pyth',
-                                 'checkpoint_submit/checkpoint_epoch_dashboard_24491_00013_62.86.pyth',
-                                 'checkpoint_submit/checkpoint_epoch_dashboard_35133_00005_70.59.pyth',
-                                 'checkpoint_submit/checkpoint_epoch_dashboard_38058_00010_44.12.pyth',
-                                 'checkpoint_submit/checkpoint_epoch_dashboard_49381_00010_58.33.pyth']
+    # checkpoint_dashboard_list = ['checkpoint_submit/checkpoint_epoch_dashboard_24026_00016_77.78.pyth',
+    #                              'checkpoint_submit/checkpoint_epoch_dashboard_24491_00013_62.86.pyth',
+    #                              'checkpoint_submit/checkpoint_epoch_dashboard_35133_00005_70.59.pyth',
+    #                              'checkpoint_submit/checkpoint_epoch_dashboard_38058_00010_44.12.pyth',
+    #                              'checkpoint_submit/checkpoint_epoch_dashboard_49381_00010_58.33.pyth']
     vid_info = dict(sorted(vid_info.items()))
     prob_1, video_order = main(cfg, vid_info, checkpoint_dashboard_list)
 
@@ -249,11 +260,11 @@ if __name__ == "__main__":
         if key in filelist:
             vid_info.setdefault(key, []).append(filelist[key])
     vid_info = dict(sorted(vid_info.items()))
-    checkpoint_rearview_list = ['checkpoint_submit/checkpoint_epoch_rearview_24026_00013_69.44.pyth',
-                                'checkpoint_submit/checkpoint_epoch_rearview_24491_00013_60.00.pyth',
-                                'checkpoint_submit/checkpoint_epoch_rearview_35133_00013_64.71.pyth',
-                                'checkpoint_submit/checkpoint_epoch_rearview_38058_00015_52.94.pyth',
-                                'checkpoint_submit/checkpoint_epoch_rearview_49381_00008_61.11.pyth']
+    # checkpoint_rearview_list = ['checkpoint_submit/checkpoint_epoch_rearview_24026_00013_69.44.pyth',
+    #                             'checkpoint_submit/checkpoint_epoch_rearview_24491_00013_60.00.pyth',
+    #                             'checkpoint_submit/checkpoint_epoch_rearview_35133_00013_64.71.pyth',
+    #                             'checkpoint_submit/checkpoint_epoch_rearview_38058_00015_52.94.pyth',
+    #                             'checkpoint_submit/checkpoint_epoch_rearview_49381_00008_61.11.pyth']
     prob_2, video_order = main(cfg, vid_info, checkpoint_rearview_list)
 
     # start infer rightside videos
@@ -277,11 +288,11 @@ if __name__ == "__main__":
         if key in filelist:
             vid_info.setdefault(key, []).append(filelist[key])
     vid_info = dict(sorted(vid_info.items()))
-    checkpoint_right_list = ['checkpoint_submit/checkpoint_epoch_right_24026_00016_80.56.pyth',
-                             'checkpoint_submit/checkpoint_epoch_right_24491_00010_54.29.pyth',
-                             'checkpoint_submit/checkpoint_epoch_right_35133_00009_38.24.pyth',
-                             'checkpoint_submit/checkpoint_epoch_right_38058_00008_47.06.pyth',
-                             'checkpoint_submit/checkpoint_epoch_right_49381_00006_69.44.pyth']
+    # checkpoint_right_list = ['checkpoint_submit/checkpoint_epoch_right_24026_00016_80.56.pyth',
+    #                          'checkpoint_submit/checkpoint_epoch_right_24491_00010_54.29.pyth',
+    #                          'checkpoint_submit/checkpoint_epoch_right_35133_00009_38.24.pyth',
+    #                          'checkpoint_submit/checkpoint_epoch_right_38058_00008_47.06.pyth',
+    #                          'checkpoint_submit/checkpoint_epoch_right_49381_00006_69.44.pyth']
     prob_3, video_order = main(cfg, vid_info, checkpoint_right_list)
 
     # post-processing
