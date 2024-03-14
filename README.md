@@ -1,8 +1,6 @@
-# AI City Action Recognition
+# AI City Driving Action Recognition
 
-This is the official repository of 
-
-**AIC_Action_Recognition: A Unified Framework for Driving Action Recognition Methods in AI City Challenge.**
+This is the official repository of **AIC_Action_Recognition: A Unified Framework for Driving Action Recognition Methods in AI City Challenge.**
 
 ## Setup
 ```bash
