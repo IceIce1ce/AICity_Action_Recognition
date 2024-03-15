@@ -48,7 +48,6 @@ def eval_ndar(labels, predictions):
     mos = np.sum(overlap) / (len(predictions) + mgt)
     return pd.DataFrame([(mos,)], columns=['mOS'])
 
-
 if __name__ == '__main__':
     args = get_args()
     random.seed(10)
@@ -57,13 +56,34 @@ if __name__ == '__main__':
     try:
         predictions = getData(args.predictions_file, names=['video_id', 'activity_id', 'ts_start', 'ts_end'])
         predictions = predictions[predictions.activity_id != 0]
-        with pd.option_context('display.max_rows', None,
-                               'display.max_columns', None,
-                               'display.precision', 3,
-                               ):
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.precision', 3):
             print(predictions)
         df = eval_ndar(labels, predictions)
         print_results(df)
     except Exception as e:
         print("Error: %s" % repr(e))
         traceback.print_exc()
+
+# if __name__ == '__main__':
+#     args = get_args()
+#     random.seed(10)
+#     labels = getData(args.ground_truth_file, names=['video_id', 'activity_id', 'ts_start', 'ts_end'])
+#     labels = labels[labels.activity_id != 0]
+#     max_mos = 0
+#     best_file_refine = ''
+#     try:
+#         import glob
+#         from natsort import natsorted
+#         list_output_refine = glob.glob('list_output_refine/*.txt')
+#         for i in range(len(list_output_refine)):
+#             predictions = getData(list_output_refine[i], names=['video_id', 'activity_id', 'ts_start', 'ts_end'])
+#             predictions = predictions[predictions.activity_id != 0]
+#             df, mos = eval_ndar(labels, predictions)
+#             if max_mos < mos:
+#                 max_mos = mos
+#                 best_file_refine = list_output_refine[i]
+#     except Exception as e:
+#         print("Error: %s" % repr(e))
+#         traceback.print_exc()
+#     print(best_file_refine)
+#     print(max_mos)

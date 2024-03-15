@@ -8,7 +8,7 @@ def getData(fpath, names=None, sep='\s+|\t+|,'):
     except Exception as e:
         raise ValueError("Could not read input from %s. Error: %s" % (os.path.basename(fpath), repr(e)))
 
-labels = getData('my_submission.txt', names=['video_id', 'activity_id', 'ts_start', 'ts_end'])
+labels = getData('refine_A2_submission_0.33.txt', names=['video_id', 'activity_id', 'ts_start', 'ts_end'])
 labels = labels.sort_values(by=['video_id', 'ts_start'])
 # labels['ts_start'] = labels['ts_start'] - 2
 # labels['ts_end'] = labels['ts_end'] + 2
