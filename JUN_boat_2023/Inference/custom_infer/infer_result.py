@@ -90,7 +90,7 @@ def ensemble_results(cfg, videoids):
                     for rate in sample_rate:
                         for ratio in overlap_ratio:
                             prob_file = 'probability_results/view-{}_frame-{}_rate-{}_datatype-{}_overlapratio-{}.npy'.format(view, frame_num, rate, datatype, ratio)
-                            load_data = np.load(prob_file, allow_pickle=True).item()[str(values[0])] # [14592]
+                            load_data = np.load(prob_file, allow_pickle=True).item()[values[0]] # [14592]
                             if ratio != 0:
                                 zeros_pad_gussion = np.zeros(int(frame_num * rate * ratio), dtype=float)
                                 npyloader.append(zeros_pad * int(frame_num * rate * ratio) + load_data) # [48]

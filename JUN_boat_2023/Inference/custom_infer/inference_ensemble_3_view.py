@@ -80,6 +80,41 @@ def main(cfg, videoids, checkpoint_list):
     cu.load_test_checkpoint(cfg, model_5)   
     model_5.eval() 
     print('Checkpoint 5:', cfg.TEST.CHECKPOINT_FILE_PATH, '\n')
+    cfg.TEST.CHECKPOINT_FILE_PATH = checkpoint_list[5]
+    model_6 = build_model(cfg)
+    cu.load_test_checkpoint(cfg, model_6)
+    model_6.eval()
+    print('Checkpoint 6:', cfg.TEST.CHECKPOINT_FILE_PATH, '\n')
+    cfg.TEST.CHECKPOINT_FILE_PATH = checkpoint_list[6]
+    model_7 = build_model(cfg)
+    cu.load_test_checkpoint(cfg, model_7)
+    model_7.eval()
+    print('Checkpoint 7:', cfg.TEST.CHECKPOINT_FILE_PATH, '\n')
+    cfg.TEST.CHECKPOINT_FILE_PATH = checkpoint_list[7]
+    model_8 = build_model(cfg)
+    cu.load_test_checkpoint(cfg, model_8)
+    model_8.eval()
+    print('Checkpoint 8:', cfg.TEST.CHECKPOINT_FILE_PATH, '\n')
+    cfg.TEST.CHECKPOINT_FILE_PATH = checkpoint_list[8]
+    model_9 = build_model(cfg)
+    cu.load_test_checkpoint(cfg, model_9)
+    model_9.eval()
+    print('Checkpoint 9:', cfg.TEST.CHECKPOINT_FILE_PATH, '\n')
+    cfg.TEST.CHECKPOINT_FILE_PATH = checkpoint_list[9]
+    model_10 = build_model(cfg)
+    cu.load_test_checkpoint(cfg, model_10)
+    model_10.eval()
+    print('Checkpoint 10:', cfg.TEST.CHECKPOINT_FILE_PATH, '\n')
+    cfg.TEST.CHECKPOINT_FILE_PATH = checkpoint_list[10]
+    model_11 = build_model(cfg)
+    cu.load_test_checkpoint(cfg, model_11)
+    model_11.eval()
+    print('Checkpoint 11:', cfg.TEST.CHECKPOINT_FILE_PATH, '\n')
+    cfg.TEST.CHECKPOINT_FILE_PATH = checkpoint_list[11]
+    model_12 = build_model(cfg)
+    cu.load_test_checkpoint(cfg, model_12)
+    model_12.eval()
+    print('Checkpoint 12:', cfg.TEST.CHECKPOINT_FILE_PATH, '\n')
 
     total_prob_sq = {}
     video_order = []
@@ -124,7 +159,14 @@ def main(cfg, videoids, checkpoint_list):
                 preds_3 = model_3(inputs).detach().cpu().numpy()
                 preds_4 = model_4(inputs).detach().cpu().numpy()
                 preds_5 = model_5(inputs).detach().cpu().numpy()
-                prob_ensemble = np.array([preds, preds_2, preds_3, preds_4, preds_5]) # [5, 1, 18]
+                preds_6 = model_6(inputs).detach().cpu().numpy()
+                preds_7 = model_7(inputs).detach().cpu().numpy()
+                preds_8 = model_8(inputs).detach().cpu().numpy()
+                preds_9 = model_9(inputs).detach().cpu().numpy()
+                preds_10 = model_10(inputs).detach().cpu().numpy()
+                preds_11 = model_11(inputs).detach().cpu().numpy()
+                preds_12 = model_12(inputs).detach().cpu().numpy()
+                prob_ensemble = np.array([preds, preds_2, preds_3, preds_4, preds_5, preds_6, preds_7, preds_8, preds_9, preds_10, preds_11, preds_12]) # [5, 1, 18]
                 prob_ensemble = np.mean(prob_ensemble, axis=0) # [1, 18]
                 prob_sq.append(prob_ensemble)
                 frames = []
@@ -198,15 +240,15 @@ if __name__ == "__main__":
     cfg = assert_and_infer_cfg(cfg)
     fps = 30
     seed_everything(719)
-    labels = list(np.arange(18)) # change to 16 classes for dataset 2023 and 2024
+    labels = list(np.arange(16)) # change to 18 classes for dataset 2022
     checkpoint_dashboard_list = []
     checkpoint_rearview_list = []
     checkpoint_right_list = []
     path_saved_ckpt = natsorted(glob.glob('checkpoint_submit/*.pyth'))
     for i in range(len(path_saved_ckpt)):
-        if path_saved_ckpt[i].split('/')[-1].split('_')[2] == 'dashboard':
+        if path_saved_ckpt[i].split('/')[-1].split('_')[1] == 'dashboard':
             checkpoint_dashboard_list.append(path_saved_ckpt[i])
-        elif path_saved_ckpt[i].split('/')[-1].split('_')[2] == 'rearview':
+        elif path_saved_ckpt[i].split('/')[-1].split('_')[1] == 'rearview':
             checkpoint_rearview_list.append(path_saved_ckpt[i])
         else:
             checkpoint_right_list.append(path_saved_ckpt[i])
@@ -232,11 +274,6 @@ if __name__ == "__main__":
             vid_info.setdefault(key, []).append(video_ids[key])
         if key in filelist:
             vid_info.setdefault(key, []).append(filelist[key])
-    # checkpoint_dashboard_list = ['checkpoint_submit/checkpoint_epoch_dashboard_24026_00016_77.78.pyth',
-    #                              'checkpoint_submit/checkpoint_epoch_dashboard_24491_00013_62.86.pyth',
-    #                              'checkpoint_submit/checkpoint_epoch_dashboard_35133_00005_70.59.pyth',
-    #                              'checkpoint_submit/checkpoint_epoch_dashboard_38058_00010_44.12.pyth',
-    #                              'checkpoint_submit/checkpoint_epoch_dashboard_49381_00010_58.33.pyth']
     vid_info = dict(sorted(vid_info.items()))
     prob_1, video_order = main(cfg, vid_info, checkpoint_dashboard_list)
 
@@ -261,11 +298,6 @@ if __name__ == "__main__":
         if key in filelist:
             vid_info.setdefault(key, []).append(filelist[key])
     vid_info = dict(sorted(vid_info.items()))
-    # checkpoint_rearview_list = ['checkpoint_submit/checkpoint_epoch_rearview_24026_00013_69.44.pyth',
-    #                             'checkpoint_submit/checkpoint_epoch_rearview_24491_00013_60.00.pyth',
-    #                             'checkpoint_submit/checkpoint_epoch_rearview_35133_00013_64.71.pyth',
-    #                             'checkpoint_submit/checkpoint_epoch_rearview_38058_00015_52.94.pyth',
-    #                             'checkpoint_submit/checkpoint_epoch_rearview_49381_00008_61.11.pyth']
     prob_2, video_order = main(cfg, vid_info, checkpoint_rearview_list)
 
     # start infer rightside videos
@@ -289,11 +321,6 @@ if __name__ == "__main__":
         if key in filelist:
             vid_info.setdefault(key, []).append(filelist[key])
     vid_info = dict(sorted(vid_info.items()))
-    # checkpoint_right_list = ['checkpoint_submit/checkpoint_epoch_right_24026_00016_80.56.pyth',
-    #                          'checkpoint_submit/checkpoint_epoch_right_24491_00010_54.29.pyth',
-    #                          'checkpoint_submit/checkpoint_epoch_right_35133_00009_38.24.pyth',
-    #                          'checkpoint_submit/checkpoint_epoch_right_38058_00008_47.06.pyth',
-    #                          'checkpoint_submit/checkpoint_epoch_right_49381_00006_69.44.pyth']
     prob_3, video_order = main(cfg, vid_info, checkpoint_right_list)
 
     # post-processing
@@ -317,4 +344,5 @@ if __name__ == "__main__":
             label = labels[idx]
             dataframe_list.append([i, label, start, end])
     data = pd.DataFrame(dataframe_list, columns=[0, 1, 2, 3])
+    data.to_csv('A2_submission_post_process.csv', index=False, header=False)
     general_submission(data)
