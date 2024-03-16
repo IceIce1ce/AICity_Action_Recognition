@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv('A2_submission.txt', delimiter=' ', names=["ID", "Label (Primary)", "Start Time", "End Time"])
+df = pd.read_csv('refine_A2_submission_0.33.txt', delimiter=' ', names=["ID", "Label (Primary)", "Start Time", "End Time"])
 df = df.sort_values(by=['ID', 'Start Time'])
 # condition1 = df['Label (Primary)'] == 1
 # condition2 = df['Label (Primary)'] == 2
