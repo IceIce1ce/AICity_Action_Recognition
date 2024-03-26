@@ -8,12 +8,12 @@ def getData(fpath, names=None, sep='\s+|\t+|,'):
     except Exception as e:
         raise ValueError("Could not read input from %s. Error: %s" % (os.path.basename(fpath), repr(e)))
 
-labels = getData('refine_A2_submission_0.33.txt', names=['video_id', 'activity_id', 'ts_start', 'ts_end'])
+labels = getData('final_submission.txt', names=['video_id', 'activity_id', 'ts_start', 'ts_end'])
 labels = labels.sort_values(by=['video_id', 'ts_start'])
-# labels['ts_start'] = labels['ts_start'] - 2
-# labels['ts_end'] = labels['ts_end'] + 2
+# labels['ts_start'] = labels['ts_start'] - 1
+# labels['ts_end'] = labels['ts_end'] + 1
 
 # condition = labels['ts_end'] - labels['ts_start'] > 3
 # labels.loc[condition, 'ts_start'] = labels.loc[condition, 'ts_start'] + 1
 # labels.loc[condition, 'ts_end'] = labels.loc[condition, 'ts_end'] - 1
-labels.to_csv('sort_submission.txt', sep=' ', index=False, header=False)
+labels.to_csv('fake.txt', sep=' ', index=False, header=False)
