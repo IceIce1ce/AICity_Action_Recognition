@@ -74,9 +74,10 @@ if __name__ == '__main__':
 #     try:
 #         import glob
 #         from natsort import natsorted
-#         list_output_refine = glob.glob('list_output_refine/*.txt')
+#         # list_output_refine = glob.glob('list_output_refine/*.txt')
+#         list_output_refine = os.listdir('list_output_refine')
 #         for i in range(len(list_output_refine)):
-#             predictions = getData(list_output_refine[i], names=['video_id', 'activity_id', 'ts_start', 'ts_end'])
+#             predictions = getData('list_output_refine/' + list_output_refine[i], names=['video_id', 'activity_id', 'ts_start', 'ts_end'])
 #             predictions = predictions[predictions.activity_id != 0]
 #             df, mos = eval_ndar(labels, predictions)
 #             if max_mos < mos:
