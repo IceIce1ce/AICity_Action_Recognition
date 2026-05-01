@@ -1,6 +1,6 @@
-# AI City Driving Action Recognition
+# AI City Action Recognition
 
-This is the official repository of **AIC_Action_Recognition: A Unified Framework for Driving Action Recognition Methods in AI City Challenge.**
+This is the official repository of **AI City Action Recognition: A Unified Framework for Driving Action Recognition Methods in AI City Challenge.**
 
 ## 1. Setup
 ```bash
@@ -25,7 +25,7 @@ If you find our work useful, please cite the following:
 If you have any questions, feel free to contact `Chi Tran` 
 ([ctran743@gmail.com](ctran743@gmail.com) or [tdc2000@skku.edu](tdc2000@skku.edu)).
 
-##  Acknowledgement
+## 4. Acknowledgement
 Our framework is built using multiple open source, thanks for their great contributions.
 <!--ts-->
 * [RongchangLi/AICity2023_DrivingAction](https://github.com/RongchangLi/AICity2023_DrivingAction)
