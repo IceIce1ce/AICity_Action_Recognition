@@ -2,16 +2,16 @@
 
 This is the official repository of **AIC_Action_Recognition: A Unified Framework for Driving Action Recognition Methods in AI City Challenge.**
 
-## Setup
+## 1. Setup
 ```bash
 conda env create -f environment.yml
 conda activate anomaly
 ```
 
-## Citation
+## 2. Citation
 If you find our work useful, please cite the following:
 ```
-@misc{Chi2023,
+@misc{Chi2024,
   author       = {Chi Tran},
   title        = {AI City Action Recognition: A Unified Framework for Driving Action Recognition Methods in AI City Challenge},
   publisher    = {GitHub},
@@ -21,9 +21,9 @@ If you find our work useful, please cite the following:
 }
 ```
 
-## Contact
+## 3. Contact
 If you have any questions, feel free to contact `Chi Tran` 
-([ctran743@gmail.com](ctran743@gmail.com)).
+([ctran743@gmail.com](ctran743@gmail.com) or [tdc2000@skku.edu](tdc2000@skku.edu)).
 
 ##  Acknowledgement
 Our framework is built using multiple open source, thanks for their great contributions.
